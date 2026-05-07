@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>우리 사이 온도</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '989569603586337');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=989569603586337&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --accent: #D07080;
+  --accent-dark: #A25866;
+  --accent-warm: #F0A0B8;
+  --accent-glow: rgba(208,112,128,0.3);
+  --accent-bg: rgba(208,112,128,0.12);
+  --accent-border: rgba(208,112,128,0.25);
+
+  --purple: #C8A0E8;
+
+  --bg-primary: #0B0E1A;
+  --text-primary: #E4DDF0;
+  --text-heading: #F4D0DD;
+
+  --neutral-100: #B8B0D0;
+  --neutral-300: #A098C0;
+  --neutral-400: #9890B0;
+  --neutral-500: #9088B0;
+  --neutral-700: #8878A0;
+  --neutral-800: #706890;
+  --neutral-900: #605878;
+  --neutral-1000: #504868;
+  --neutral-1100: #383050;
+
+  --surface-card: rgba(20,12,40,0.5);
+  --surface-pill: rgba(18,14,36,0.4);
+  --surface-blur-row: rgba(36,28,64,0.4);
+  --card-border: rgba(150,120,200,0.1);
+
+  --radius-card: 20px;
+  --radius-md: 16px;
+  --radius-base: 14px;
+  --radius-sm: 12px;
+  --radius-xs: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stars-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  animation: star-in 2s ease-out forwards;
+}
+
+@keyframes star-in { to { opacity: var(--star-o, 0.6); } }
+@keyframes twinkle {
+  0%, 100% { opacity: var(--star-o, 0.6); }
+  50% { opacity: calc(var(--star-o, 0.6) * 0.25); }
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 0 24px;
+  margin: 0 -24px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(120,60,160,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse at 30% 70%, rgba(200,100,140,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-dots {
+  position: relative;
+  height: 56px;
+  width: 160px;
+  margin-bottom: 48px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow), 0 0 32px var(--accent-glow);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dot-a { left: 50%; animation: drift-a 20s ease-in-out infinite; }
+.dot-b { right: 50%; animation: drift-b 20s ease-in-out infinite; }
+
+@keyframes drift-a {
+  0%, 100% { transform: translateX(-10px) translateY(-50%); opacity: 1; }
+  50% { transform: translateX(-70px) translateY(-50%); opacity: 0.4; }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translateX(10px) translateY(-50%); opacity: 1; }
+  50% { transform: translateX(70px) translateY(-50%); opacity: 0.4; }
+}
+
+.hero-dots::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, var(--accent-glow), transparent 95%);
+  animation: thread-fade 20s ease-in-out infinite;
+}
+
+@keyframes thread-fade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.04; }
+}
+
+.hero h1 {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--neutral-400);
+  font-weight: 400;
+  line-height: 1.9;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: hint-bounce 2s ease-in-out infinite;
+}
+
+.scroll-hint span {
+  font-size: 11px;
+  color: var(--neutral-500);
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.scroll-hint svg { color: var(--neutral-500); }
+
+@keyframes hint-bounce {
+  0%, 100% { opacity: 0.8; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.4; transform: translateX(-50%) translateY(8px); }
+}
+
+/* ── EMPATHY ── */
+.empathy { padding: 72px 0 24px; }
+
+.whisper {
+  font-size: 15px;
+  color: var(--neutral-700);
+  font-weight: 300;
+  margin-bottom: 28px;
+  padding-left: 4px;
+  position: relative;
+  line-height: 1.8;
+}
+
+.whisper::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 6px;
+  width: 3px;
+  height: calc(100% - 12px);
+  background: linear-gradient(180deg, rgba(200,140,180,0.25), transparent);
+  border-radius: 2px;
+}
+
+.empathy-close {
+  font-size: 14px;
+  color: #B0A0C8;
+  font-weight: 500;
+  text-align: center;
+  padding: 40px 0 0;
+  letter-spacing: 0.02em;
+}
+
+/* ── PREVIEW ── */
+.preview { padding: 56px 0 64px; }
+
+.preview-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--neutral-800);
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.preview-card {
+  background: linear-gradient(160deg, rgba(60,30,90,0.35) 0%, var(--surface-card) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  padding: 40px 24px 32px;
+  backdrop-filter: blur(16px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(208,112,128,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.temp-num {
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  animation: temp-glow 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes temp-glow {
+  0% { text-shadow: 0 0 24px var(--accent-glow); }
+  100% { text-shadow: 0 0 48px var(--accent-glow), 0 0 80px rgba(208,112,128,0.06); }
+}
+
+.temp-deg {
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--accent-dark);
+}
+
+.preview-msg {
+  font-size: 14px;
+  color: var(--neutral-300);
+  margin-top: 12px;
+  font-weight: 400;
+}
+
+.preview-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(150, 120, 200, 0.07);
+}
+
+.stat { text-align: center; }
+
+.stat-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+.stat-val.purple { color: var(--purple); }
+
+.stat-name {
+  font-size: 11px;
+  color: #7870A0;
+  margin-top: 4px;
+  display: block;
+}
+
+.preview-section-label {
+  font-size: 11px;
+  color: var(--neutral-800);
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 24px;
+  margin-bottom: 10px;
+}
+
+.preview-blur-items {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blur-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--surface-blur-row);
+  border-radius: var(--radius-xs);
+  filter: blur(4px);
+  user-select: none;
+  font-size: 13px;
+}
+.blur-row span:first-child { color: #8878A8; }
+.blur-row span:last-child { font-weight: 600; color: var(--accent); }
+
+.preview-more {
+  font-size: 12px;
+  color: var(--neutral-900);
+  margin-top: 14px;
+}
+
+/* ── BOTTOM ZONE ── */
+.bottom-zone { padding: 0 0 48px; }
+
+.how-steps {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 32px;
+}
+
+.how-pill {
+  flex: 1;
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--surface-pill);
+  position: relative;
+}
+
+.how-pill:first-child { border-radius: var(--radius-base) 0 0 var(--radius-base); }
+.how-pill:last-child { border-radius: 0 var(--radius-base) var(--radius-base) 0; }
+
+.how-pill .pill-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.how-pill .pill-text {
+  font-size: 12px;
+  color: var(--neutral-100);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.privacy-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 0 20px;
+}
+.privacy-line svg { color: var(--neutral-800); flex-shrink: 0; }
+.privacy-line span { font-size: 13px; color: var(--neutral-800); }
+
+.notify-link {
+  text-align: center;
+  font-size: 14px;
+  color: var(--neutral-300);
+  margin-bottom: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(160,152,192,0.4);
+  transition: color 0.15s;
+}
+.notify-link:active { color: var(--accent); }
+
+.cta-button {
+  display: block;
+  width: 100%;
+  padding: 20px 0;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 17px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 28px var(--accent-glow);
+  transition: transform 0.15s, box-shadow 0.2s;
+  text-decoration: none;
+  text-align: center;
+}
+.cta-button:active { transform: scale(0.97); }
+
+.cta-sub {
+  text-align: center;
+  font-size: 12px;
+  color: var(--neutral-1000);
+  margin-top: 12px;
+}
+
+.footer {
+  text-align: center;
+  padding: 32px 0;
+  font-size: 11px;
+  color: var(--neutral-1100);
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(6px);
+}
+.modal-overlay.active { display: flex; }
+
+.modal {
+  background: linear-gradient(160deg, rgba(40,24,72,0.95), rgba(16,10,32,0.98));
+  border: 1px solid rgba(150,120,200,0.15);
+  border-radius: var(--radius-card);
+  padding: 40px 28px 32px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(20px);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--neutral-800);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: var(--neutral-400);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.phone-input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.phone-input {
+  flex: 1;
+  padding: 14px 16px;
+  background: rgba(12,8,28,0.6);
+  border: 1px solid rgba(150,120,200,0.2);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.phone-input::placeholder { color: var(--neutral-800); }
+.phone-input:focus { border-color: var(--accent-border); }
+
+.phone-submit {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 16px var(--accent-glow);
+  transition: transform 0.15s;
+}
+.phone-submit:active { transform: scale(0.97); }
+
+.modal-privacy {
+  font-size: 11px;
+  color: var(--neutral-800);
+  margin-top: 4px;
+}
+
+/* ── Success State ── */
+.modal-success {
+  display: none;
+}
+.modal-success.active {
+  display: block;
+}
+.modal-form.hidden {
+  display: none;
+}
+
+.success-check {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  border: 2px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.success-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 6px;
+}
+
+.success-desc {
+  font-size: 13px;
+  color: var(--neutral-400);
+  line-height: 1.6;
+}
+
+/* ── Scroll Reveal ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+[data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.empathy .whisper:nth-child(2) { transition-delay: 0.2s; }
+.empathy .whisper:nth-child(3) { transition-delay: 0.4s; }
+.empathy-close { transition-delay: 0.7s; }
+</style>
+</head>
+<body>
+
+<div class="stars-layer" id="stars-layer"></div>
+
+<div class="container">
+
+  <section class="hero">
+    <div class="hero-dots">
+      <div class="dot dot-a"></div>
+      <div class="dot dot-b"></div>
+    </div>
+    <h1>우리 지금<br>어디에 있을까</h1>
+    <p class="hero-sub">그 사람도 같은 마음일까<br>대화에 답이 있을지도 몰라요</p>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
+    </div>
+  </section>
+
+  <section class="empathy">
+    <p class="whisper" data-reveal>요즘 답장이 좀 느려진 것 같은데</p>
+    <p class="whisper" data-reveal>나만 먼저 연락하는 건 아닌지</p>
+    <p class="whisper" data-reveal>예전만큼 대화가 안 되는 느낌</p>
+    <p class="empathy-close" data-reveal>혼자 이런 생각, 해본 적 있다면</p>
+  </section>
+
+  <section class="preview" data-reveal>
+    <p class="preview-label">이런 걸 알 수 있어요</p>
+    <div class="preview-card">
+      <div>
+        <span class="temp-num">72.4</span><span class="temp-deg">°</span>
+      </div>
+      <p class="preview-msg">따뜻하지만, 조금 식어가고 있어요</p>
+      <div class="preview-stats">
+        <div class="stat">
+          <span class="stat-val">63%</span>
+          <span class="stat-name">내가 먼저 연락</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val purple">47분</span>
+          <span class="stat-name">상대 평균 답장</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val">2,847</span>
+          <span class="stat-name">사랑해</span>
+        </div>
+      </div>
+      <div class="preview-blur-items">
+        <div class="blur-row"><span>읽씹 추정</span><span>하루 2.3회</span></div>
+        <div class="blur-row"><span>대화량 추이</span><span>3개월째 감소</span></div>
+        <div class="blur-row"><span>새벽 대화</span><span>최근 0%</span></div>
+      </div>
+      <p class="preview-more">+ 월별 심화지표 6개</p>
+    </div>
+  </section>
+
+  <section class="bottom-zone" data-reveal>
+    <div class="how-steps">
+      <div class="how-pill">
+        <span class="pill-num">1</span>
+        <span class="pill-text">카톡 대화<br>내보내기</span>
+      </div>
+      <div class="how-pill">
+        <span class="pill-num">2</span>
+        <span class="pill-text">파일<br>업로드</span>
+      </div>
+      <div class="how-pill">
+        <span class="pill-num">3</span>
+        <span class="pill-text">결과<br>확인</span>
+      </div>
+    </div>
+
+    <div class="privacy-line" id="privacy-line" style="display:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 1 1 8 0v4"></path></svg>
+      <span>대화 내용은 서버에 저장되지 않아요</span>
+    </div>
+    <p class="notify-link" onclick="openModal()">출시되면 알려드려요</p>
+    <button class="cta-button" onclick="openModal()">우리 사이 온도 확인하기</button>
+    <p class="cta-sub">무료 · 가입 없이 · 30초</p>
+  </section>
+
+  <footer class="footer">우리 사이 온도 · 2025</footer>
+
+</div>
+
+<!-- ── Modal ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+
+    <div class="modal-form" id="modal-form">
+      <div class="modal-title">준비 중이에요</div>
+      <div class="modal-desc">오픈하면 알려드릴게요</div>
+      <div class="phone-input-wrap">
+        <input class="phone-input" id="phone-input" type="tel" inputmode="numeric" placeholder="010-0000-0000" maxlength="13">
+        <button class="phone-submit" onclick="submitPhone()">알림 신청</button>
+      </div>
+      <div class="modal-privacy">번호는 오픈 알림 외 다른 용도로 사용하지 않아요</div>
+    </div>
+
+    <div class="modal-success" id="modal-success">
+      <div class="success-check">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="success-title">신청 완료!</div>
+      <div class="success-desc">오픈되면 가장 먼저 알려드릴게요</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Stars ──
+var starsLayer = document.getElementById('stars-layer');
+
+function createStarField(density) {
+  starsLayer.innerHTML = '';
+  var count = Math.round(100 * density);
+  for (var i = 0; i < count; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    var size = 1.2 + Math.random() * 1.8;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    var op = 0.35 + Math.random() * 0.55;
+    s.style.setProperty('--star-o', op);
+    s.style.animationDelay = (Math.random() * 3) + 's';
+    (function(el, opacity) {
+      setTimeout(function() {
+        el.style.animation = 'twinkle ' + (3 + Math.random() * 5) + 's ease-in-out infinite';
+        el.style.opacity = opacity;
+      }, 2200 + Math.random() * 1200);
+    })(s, op);
+    if (Math.random() < 0.18) {
+      (function(el) {
+        setTimeout(function() {
+          el.style.transition = 'opacity 6s ease-out';
+          el.style.opacity = '0';
+        }, 8000 + Math.random() * 30000);
+      })(s);
+    }
+    if (Math.random() < 0.06) {
+      s.style.background = Math.random() < 0.5
+        ? 'rgba(200,180,255,0.9)' : 'rgba(255,200,220,0.8)';
+    }
+    starsLayer.appendChild(s);
+  }
+}
+
+// ── Scroll Reveal ──
+function initReveal() {
+  var els = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) { obs.observe(el); });
+  } else {
+    els.forEach(function(el) { el.classList.add('revealed'); });
+  }
+}
+
+// ── Modal ──
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('active');
+  document.getElementById('phone-input').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+// ── Phone formatting ──
+document.getElementById('phone-input').addEventListener('input', function(e) {
+  var v = e.target.value.replace(/\D/g, '');
+  if (v.length > 11) v = v.slice(0, 11);
+  if (v.length > 7) {
+    e.target.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7);
+  } else if (v.length > 3) {
+    e.target.value = v.slice(0,3) + '-' + v.slice(3);
+  } else {
+    e.target.value = v;
+  }
+});
+
+// ── Submit ──
+function submitPhone() {
+  var input = document.getElementById('phone-input');
+  var raw = input.value.replace(/\D/g, '');
+
+  if (raw.length < 10 || raw.length > 11) {
+    input.style.borderColor = '#ff6b6b';
+    input.placeholder = '올바른 번호를 입력해주세요';
+    input.value = '';
+    return;
+  }
+
+  // TODO: Google Sheets webhook or Vercel API route
+  // fetch('YOUR_WEBHOOK_URL', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ phone: input.value, ts: new Date().toISOString() })
+  // });
+
+  fbq('track', 'Lead');
+  document.getElementById('modal-form').classList.add('hidden');
+  document.getElementById('modal-success').classList.add('active');
+}
+
+// ── Init ──
+// ── UTM variant ──
+var params = new URLSearchParams(location.search);
+var variant = params.get('utm_content');
+if (variant === 'privacy') {
+  document.getElementById('privacy-line').style.display = 'flex';
+}
+
+createStarField(0.9);
+initReveal();
+</script>
+</body>
+</html>

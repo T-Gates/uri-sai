@@ -35,7 +35,11 @@ src="https://www.facebook.com/tr?id=989569603586337&ev=PageView&noscript=1"
 <!-- PostHog -->
 <script>
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-posthog.init('phc_mQPmWsXYqp9zo5nxPanji9NqnRPQVyMZG2yRZysMewgX', { api_host: 'https://us.i.posthog.com' });
+posthog.init('phc_mQPmWsXYqp9zo5nxPanji9NqnRPQVyMZG2yRZysMewgX', {
+  api_host: 'https://us.i.posthog.com',
+  autocapture: true,
+  disable_session_recording: false
+});
 </script>
 <!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -878,6 +882,34 @@ body {
   margin-top: 4px;
 }
 
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--neutral-500);
+  cursor: pointer;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.consent-label input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+.consent-label em {
+  font-style: normal;
+  color: var(--neutral-800);
+}
+.consent-label.shake {
+  animation: consent-shake 0.4s ease-in-out;
+}
+@keyframes consent-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
 /* ── Success State ── */
 .modal-success {
   display: none;
@@ -1121,7 +1153,10 @@ body {
         <input class="phone-input" id="phone-input" type="tel" inputmode="numeric" placeholder="010-0000-0000" maxlength="13">
         <button class="phone-submit" onclick="submitPhone()">알림 신청</button>
       </div>
-      <div class="modal-privacy">번호는 오픈 알림 외 다른 용도로 사용하지 않아요</div>
+      <label class="consent-label" id="consent-label">
+        <input type="checkbox" id="consent-check">
+        <span>개인정보 수집·이용에 동의합니다 <em>(알림 발송 목적, 출시 후 파기)</em></span>
+      </label>
     </div>
 
     <div class="modal-success" id="modal-success">
@@ -1291,12 +1326,21 @@ document.getElementById('phone-input').addEventListener('input', function(e) {
 // ── Submit ──
 function submitPhone() {
   var input = document.getElementById('phone-input');
+  var consent = document.getElementById('consent-check');
+  var consentLabel = document.getElementById('consent-label');
   var raw = input.value.replace(/\D/g, '');
 
   if (raw.length < 10 || raw.length > 11) {
     input.style.borderColor = '#ff6b6b';
     input.placeholder = '올바른 번호를 입력해주세요';
     input.value = '';
+    return;
+  }
+
+  if (!consent.checked) {
+    consentLabel.classList.remove('shake');
+    void consentLabel.offsetWidth;
+    consentLabel.classList.add('shake');
     return;
   }
 

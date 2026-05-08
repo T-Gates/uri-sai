@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>우리 사이 온도</title>
+<title>우리사이</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -21,7 +22,20 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=989569603586337&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- PostHog -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_mQPmWsXYqp9zo5nxPanji9NqnRPQVyMZG2yRZysMewgX', { api_host: 'https://us.i.posthog.com' });
+</script>
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+var SUPABASE_URL = 'https://qnowncbllepecruubuhh.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFub3duY2JsbGVwZWNydXVidWhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzQyMTAsImV4cCI6MjA5Mzc1MDIxMH0.Qa5fPwU56zw8vDGUp1py96BmftjpZM2ldLJJ88NCmzo';
+var _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap">
 <style>
 :root {
   --accent: #D07080;
@@ -37,20 +51,20 @@ src="https://www.facebook.com/tr?id=989569603586337&ev=PageView&noscript=1"
   --text-primary: #E4DDF0;
   --text-heading: #F4D0DD;
 
-  --neutral-100: #B8B0D0;
-  --neutral-300: #A098C0;
-  --neutral-400: #9890B0;
-  --neutral-500: #9088B0;
-  --neutral-700: #8878A0;
-  --neutral-800: #706890;
+  --neutral-100: #CEC8E0;
+  --neutral-300: #B8B0D0;
+  --neutral-400: #ACA4C4;
+  --neutral-500: #A098B8;
+  --neutral-700: #9888B0;
+  --neutral-800: #8078A0;
   --neutral-900: #605878;
   --neutral-1000: #504868;
   --neutral-1100: #383050;
 
-  --surface-card: rgba(20,12,40,0.5);
-  --surface-pill: rgba(18,14,36,0.4);
-  --surface-blur-row: rgba(36,28,64,0.4);
-  --card-border: rgba(150,120,200,0.1);
+  --surface-card: rgba(30,20,55,0.65);
+  --surface-pill: rgba(28,22,50,0.5);
+  --surface-blur-row: rgba(44,36,72,0.5);
+  --card-border: rgba(160,130,210,0.2);
 
   --radius-card: 20px;
   --radius-md: 16px;
@@ -69,6 +83,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  font-weight: 500;
 }
 
 .stars-layer {
@@ -118,15 +133,30 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 50%, rgba(120,60,160,0.14) 0%, transparent 65%),
-    radial-gradient(ellipse at 30% 70%, rgba(200,100,140,0.06) 0%, transparent 50%);
+    radial-gradient(ellipse at 50% 40%, rgba(80,60,120,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 80%, rgba(40,80,60,0.08) 0%, transparent 50%);
   pointer-events: none;
+}
+
+.hero-treeline {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  max-height: 35vh;
+  object-fit: cover;
+  object-position: bottom;
+  pointer-events: none;
+  z-index: 0;
+  filter: invert(1) brightness(0.5) sepia(0.8) hue-rotate(80deg) saturate(1.2);
+  opacity: 0.18;
 }
 
 .hero-dots {
   position: relative;
-  height: 56px;
-  width: 160px;
+  height: 120px;
+  width: 120px;
   margin-bottom: 48px;
 }
 
@@ -138,38 +168,34 @@ body {
   box-shadow: 0 0 12px var(--accent-glow), 0 0 32px var(--accent-glow);
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
 }
 
-.dot-a { left: 50%; animation: drift-a 20s ease-in-out infinite; }
-.dot-b { right: 50%; animation: drift-b 20s ease-in-out infinite; }
+.dot-a { animation: orbit-a 18s ease-in-out infinite; }
+.dot-b { animation: orbit-b 18s ease-in-out infinite; }
 
-@keyframes drift-a {
-  0%, 100% { transform: translateX(-10px) translateY(-50%); opacity: 1; }
-  50% { transform: translateX(-70px) translateY(-50%); opacity: 0.4; }
-}
-@keyframes drift-b {
-  0%, 100% { transform: translateX(10px) translateY(-50%); opacity: 1; }
-  50% { transform: translateX(70px) translateY(-50%); opacity: 0.4; }
-}
-
-.hero-dots::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 5%, var(--accent-glow), transparent 95%);
-  animation: thread-fade 20s ease-in-out infinite;
+@keyframes orbit-a {
+  0%   { transform: translate(calc(-50% + 5px),  calc(-50% - 4px));  opacity: 1; }
+  15%  { transform: translate(calc(-50% + 20px), calc(-50% - 28px)); opacity: 0.8; }
+  35%  { transform: translate(calc(-50% - 18px), calc(-50% - 36px)); opacity: 0.5; }
+  50%  { transform: translate(calc(-50% - 42px), calc(-50% + 4px));  opacity: 0.35; }
+  65%  { transform: translate(calc(-50% - 18px), calc(-50% + 36px)); opacity: 0.5; }
+  85%  { transform: translate(calc(-50% + 20px), calc(-50% + 28px)); opacity: 0.8; }
+  100% { transform: translate(calc(-50% + 5px),  calc(-50% - 4px));  opacity: 1; }
 }
 
-@keyframes thread-fade {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.04; }
+@keyframes orbit-b {
+  0%   { transform: translate(calc(-50% - 5px),  calc(-50% + 4px));  opacity: 1; }
+  15%  { transform: translate(calc(-50% - 20px), calc(-50% + 28px)); opacity: 0.8; }
+  35%  { transform: translate(calc(-50% + 18px), calc(-50% + 36px)); opacity: 0.5; }
+  50%  { transform: translate(calc(-50% + 42px), calc(-50% - 4px));  opacity: 0.35; }
+  65%  { transform: translate(calc(-50% + 18px), calc(-50% - 36px)); opacity: 0.5; }
+  85%  { transform: translate(calc(-50% - 20px), calc(-50% - 28px)); opacity: 0.8; }
+  100% { transform: translate(calc(-50% - 5px),  calc(-50% + 4px));  opacity: 1; }
 }
 
 .hero h1 {
+  font-family: 'Gowun Batang', serif;
   font-size: 34px;
   font-weight: 700;
   color: var(--text-heading);
@@ -182,7 +208,7 @@ body {
 .hero-sub {
   font-size: 15px;
   color: var(--neutral-400);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.9;
 }
 
@@ -191,6 +217,7 @@ body {
   bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,7 +229,7 @@ body {
   font-size: 11px;
   color: var(--neutral-500);
   letter-spacing: 1px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .scroll-hint svg { color: var(--neutral-500); }
@@ -212,64 +239,31 @@ body {
   50% { opacity: 0.4; transform: translateX(-50%) translateY(8px); }
 }
 
-/* ── EMPATHY ── */
-.empathy { padding: 72px 0 24px; }
+/* ── RESULT PREVIEW ── */
+.result-preview { padding: 56px 0 48px; }
 
-.whisper {
-  font-size: 15px;
-  color: var(--neutral-700);
-  font-weight: 300;
-  margin-bottom: 28px;
-  padding-left: 4px;
-  position: relative;
-  line-height: 1.8;
-}
-
-.whisper::before {
-  content: '';
-  position: absolute;
-  left: -12px;
-  top: 6px;
-  width: 3px;
-  height: calc(100% - 12px);
-  background: linear-gradient(180deg, rgba(200,140,180,0.25), transparent);
-  border-radius: 2px;
-}
-
-.empathy-close {
-  font-size: 14px;
-  color: #B0A0C8;
-  font-weight: 500;
-  text-align: center;
-  padding: 40px 0 0;
-  letter-spacing: 0.02em;
-}
-
-/* ── PREVIEW ── */
-.preview { padding: 56px 0 64px; }
-
-.preview-label {
+.result-preview-label {
   text-align: center;
   font-size: 12px;
   color: var(--neutral-800);
   letter-spacing: 2px;
   font-weight: 500;
   text-transform: uppercase;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
-.preview-card {
-  background: linear-gradient(160deg, rgba(60,30,90,0.35) 0%, var(--surface-card) 100%);
+.result-preview-wrap {
+  background: linear-gradient(160deg, rgba(70,40,105,0.45) 0%, var(--surface-card) 100%);
   border: 1px solid var(--card-border);
-  border-radius: var(--radius-card);
-  padding: 40px 24px 32px;
+  border-bottom: none;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  padding: 32px 20px 28px;
   backdrop-filter: blur(16px);
-  text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-.preview-card::before {
+.result-preview-wrap::before {
   content: '';
   position: absolute;
   top: -60px;
@@ -280,8 +274,35 @@ body {
   pointer-events: none;
 }
 
-.temp-num {
-  font-size: 80px;
+.rp-section {
+  margin-bottom: 28px;
+  position: relative;
+}
+.rp-section:last-child { margin-bottom: 0; }
+
+.rp-section-title {
+  font-size: 11px;
+  color: var(--neutral-700);
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.rp-temp {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.rp-temp-label {
+  font-size: 10px;
+  color: var(--neutral-700);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.rp-temp-num {
+  font-size: 72px;
   font-weight: 700;
   color: var(--accent);
   line-height: 1;
@@ -294,115 +315,388 @@ body {
   100% { text-shadow: 0 0 48px var(--accent-glow), 0 0 80px rgba(208,112,128,0.06); }
 }
 
-.temp-deg {
-  font-size: 28px;
+.rp-temp-deg {
+  font-size: 24px;
   font-weight: 400;
   color: var(--accent-dark);
 }
 
-.preview-msg {
-  font-size: 14px;
-  color: var(--neutral-300);
-  margin-top: 12px;
-  font-weight: 400;
+.rp-temp-msg {
+  font-size: 13px;
+  color: var(--neutral-400);
+  margin-top: 8px;
+  font-weight: 600;
 }
 
-.preview-stats {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(150, 120, 200, 0.07);
+.rp-divider {
+  height: 1px;
+  background: rgba(160,130,210,0.12);
+  margin: 24px 0;
 }
 
-.stat { text-align: center; }
+.rp-total {
+  text-align: center;
+}
 
-.stat-val {
-  font-size: 22px;
+.rp-total-num {
+  font-size: 36px;
   font-weight: 700;
-  color: var(--accent);
-  display: block;
-}
-.stat-val.purple { color: var(--purple); }
-
-.stat-name {
-  font-size: 11px;
-  color: #7870A0;
-  margin-top: 4px;
-  display: block;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
-.preview-section-label {
-  font-size: 11px;
-  color: var(--neutral-800);
-  letter-spacing: 1.5px;
+.rp-total-unit {
+  font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
-  margin-top: 24px;
-  margin-bottom: 10px;
+  color: var(--neutral-400);
+  margin-left: 4px;
 }
 
-.preview-blur-items {
-  margin-top: 20px;
+.rp-total-desc {
+  font-size: 12px;
+  color: var(--neutral-500);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.rp-ratio {
+  margin-top: 16px;
+}
+
+.rp-ratio-bar {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
-.blur-row {
+.rp-ratio-me {
+  background: linear-gradient(90deg, #C87090, var(--accent-warm));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  transition: width 1s ease-out;
+}
+
+.rp-ratio-you {
+  background: linear-gradient(90deg, #8870B8, var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  transition: width 1s ease-out;
+}
+
+.rp-ratio-labels {
   display: flex;
   justify-content: space-between;
-  padding: 10px 16px;
-  background: var(--surface-blur-row);
-  border-radius: var(--radius-xs);
-  filter: blur(4px);
-  user-select: none;
-  font-size: 13px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--neutral-700);
 }
-.blur-row span:first-child { color: #8878A8; }
-.blur-row span:last-child { font-weight: 600; color: var(--accent); }
 
-.preview-more {
-  font-size: 12px;
-  color: var(--neutral-900);
-  margin-top: 14px;
+.rp-wordcloud {
+  position: relative;
+  height: 160px;
 }
+
+.wc {
+  position: absolute;
+  font-weight: 600;
+  color: var(--neutral-300);
+  white-space: nowrap;
+  opacity: 0;
+  animation: wc-in 0.8s ease-out forwards;
+}
+
+.wc-accent { color: var(--accent-warm); }
+.wc-cold { color: var(--neutral-800); }
+.wc-sm { font-size: 12px; }
+.wc-md { font-size: 15px; }
+.wc-lg { font-size: 19px; }
+.wc-xl { font-size: 24px; font-weight: 700; }
+
+.wc:nth-child(1)  { animation-delay: 0.1s; }
+.wc:nth-child(2)  { animation-delay: 0.15s; }
+.wc:nth-child(3)  { animation-delay: 0.2s; }
+.wc:nth-child(4)  { animation-delay: 0.25s; }
+.wc:nth-child(5)  { animation-delay: 0.3s; }
+.wc:nth-child(6)  { animation-delay: 0.35s; }
+.wc:nth-child(7)  { animation-delay: 0.4s; }
+.wc:nth-child(8)  { animation-delay: 0.45s; }
+.wc:nth-child(9)  { animation-delay: 0.5s; }
+.wc:nth-child(10) { animation-delay: 0.55s; }
+.wc:nth-child(11) { animation-delay: 0.6s; }
+.wc:nth-child(12) { animation-delay: 0.65s; }
+.wc:nth-child(13) { animation-delay: 0.7s; }
+
+@keyframes wc-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.rp-blurred {
+  filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.rp-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(transparent, rgba(16,10,32,0.95));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rp-monthly {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rp-month-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rp-month-label {
+  font-size: 11px;
+  color: var(--neutral-700);
+  width: 28px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.rp-month-track {
+  flex: 1;
+  height: 14px;
+  background: rgba(36,28,64,0.3);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.rp-month-bar {
+  height: 100%;
+  border-radius: 7px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent-warm));
+}
+
+.rp-month-bar--danger {
+  background: linear-gradient(90deg, #8856A0, #A06080);
+}
+
+.rp-month-val {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  width: 36px;
+  flex-shrink: 0;
+}
+
+.rp-month-bar--danger + .rp-month-val,
+.rp-month-row:last-child .rp-month-val {
+  color: #A06080;
+}
+
+.rp-more {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-top: 16px;
+  padding-bottom: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.rp-more-accent {
+  color: var(--accent-warm);
+  font-weight: 600;
+}
+
+/* ── FEATURES ── */
+.features { padding: 64px 0 24px; }
+
+.features-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--neutral-800);
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  background: linear-gradient(160deg, rgba(70,40,105,0.35) 0%, rgba(30,20,55,0.55) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-base);
+  backdrop-filter: blur(8px);
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+}
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feature-text strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.feature-text span {
+  font-size: 13px;
+  color: var(--neutral-400);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+/* ── GUIDE SLIDER ── */
+.guide { padding: 56px 0 48px; }
+
+.guide-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--neutral-800);
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.guide-slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: linear-gradient(160deg, rgba(70,40,105,0.45) 0%, var(--surface-card) 100%);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(16px);
+}
+
+.guide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(30,20,55,0.7);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neutral-300);
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.guide-arrow:active { background: rgba(60,40,100,0.8); }
+.guide-arrow.hidden { opacity: 0; pointer-events: none; }
+.guide-arrow-left { left: 8px; }
+.guide-arrow-right { right: 8px; }
+
+.guide-track {
+  display: flex;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.guide-slide {
+  min-width: 100%;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.guide-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.guide-slide img {
+  width: 100%;
+  max-width: 280px;
+  height: 320px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.guide-slide-desc {
+  font-size: 14px;
+  color: var(--neutral-300);
+  text-align: center;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.guide-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0 0;
+}
+
+.guide-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--neutral-800);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.guide-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
 
 /* ── BOTTOM ZONE ── */
 .bottom-zone { padding: 0 0 48px; }
-
-.how-steps {
-  display: flex;
-  gap: 2px;
-  margin-bottom: 32px;
-}
-
-.how-pill {
-  flex: 1;
-  text-align: center;
-  padding: 16px 8px;
-  background: var(--surface-pill);
-  position: relative;
-}
-
-.how-pill:first-child { border-radius: var(--radius-base) 0 0 var(--radius-base); }
-.how-pill:last-child { border-radius: 0 var(--radius-base) var(--radius-base) 0; }
-
-.how-pill .pill-num {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: 0.7;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.how-pill .pill-text {
-  font-size: 12px;
-  color: var(--neutral-100);
-  font-weight: 500;
-  line-height: 1.4;
-}
 
 .privacy-line {
   display: flex;
@@ -458,7 +752,21 @@ body {
   padding: 32px 0;
   font-size: 11px;
   color: var(--neutral-1100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
+
+.footer-link {
+  color: var(--neutral-900);
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(96,88,120,0.4);
+  transition: color 0.15s;
+}
+.footer-link:hover { color: var(--neutral-700); }
 
 /* ── Modal ── */
 .modal-overlay {
@@ -475,7 +783,7 @@ body {
 .modal-overlay.active { display: flex; }
 
 .modal {
-  background: linear-gradient(160deg, rgba(40,24,72,0.95), rgba(16,10,32,0.98));
+  background: linear-gradient(160deg, rgba(50,34,82,0.97), rgba(22,16,42,0.98));
   border: 1px solid rgba(150,120,200,0.15);
   border-radius: var(--radius-card);
   padding: 40px 28px 32px;
@@ -512,6 +820,7 @@ body {
   color: var(--neutral-400);
   margin-bottom: 28px;
   line-height: 1.7;
+  font-weight: 500;
 }
 
 .phone-input-wrap {
@@ -606,9 +915,6 @@ body {
   transform: none;
 }
 
-.empathy .whisper:nth-child(2) { transition-delay: 0.2s; }
-.empathy .whisper:nth-child(3) { transition-delay: 0.4s; }
-.empathy-close { transition-delay: 0.7s; }
 </style>
 </head>
 <body>
@@ -622,77 +928,174 @@ body {
       <div class="dot dot-a"></div>
       <div class="dot dot-b"></div>
     </div>
-    <h1>우리 지금<br>어디에 있을까</h1>
-    <p class="hero-sub">그 사람도 같은 마음일까<br>대화에 답이 있을지도 몰라요</p>
+    <h1>우리 지금,<br>어디에 있을까</h1>
+    <p class="hero-sub">카카오톡 대화를 넣으면<br>우리 사이의 온도를 알려드려요</p>
     <div class="scroll-hint">
       <span>SCROLL</span>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
     </div>
+    <img class="hero-treeline" src="forest-silhouette.png" alt="">
   </section>
 
-  <section class="empathy">
-    <p class="whisper" data-reveal>요즘 답장이 좀 느려진 것 같은데</p>
-    <p class="whisper" data-reveal>나만 먼저 연락하는 건 아닌지</p>
-    <p class="whisper" data-reveal>예전만큼 대화가 안 되는 느낌</p>
-    <p class="empathy-close" data-reveal>혼자 이런 생각, 해본 적 있다면</p>
+  <section class="features" data-reveal>
+    <p class="features-label">대화 속 숨은 신호</p>
+    <div class="features-list">
+      <div class="feature-item">
+        <span class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+        <div class="feature-text">
+          <strong>실제 대화 기반</strong>
+          <span>카카오톡 대화 원본을 직접 분석해서 숨은 신호를 찾아내요</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="14" width="4" height="7" rx="1"></rect><rect x="10" y="9" width="4" height="12" rx="1"></rect><rect x="16" y="4" width="4" height="17" rx="1"></rect></svg></span>
+        <div class="feature-text">
+          <strong>정교한 통계 분석</strong>
+          <span>흔한 AI 요약이 아닌, 대화 패턴을 수치로 뽑아냅니다</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"></path><polyline points="4 16 8 10 12 13 16 9 20 5"></polyline></svg></span>
+        <div class="feature-text">
+          <strong>월별 변화 추이</strong>
+          <span>우리 사이가 어떻게 변해왔는지 한눈에 볼 수 있어요</span>
+        </div>
+      </div>
+      <div class="feature-item" id="privacy-feature" style="display:none">
+        <span class="feature-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 1 1 8 0v4"></path></svg></span>
+        <div class="feature-text">
+          <strong>서버 전송 없음</strong>
+          <span>대화 내용은 브라우저에서만 처리돼요. 어디에도 저장되지 않습니다</span>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section class="preview" data-reveal>
-    <p class="preview-label">이런 걸 알 수 있어요</p>
-    <div class="preview-card">
-      <div>
-        <span class="temp-num">72.4</span><span class="temp-deg">°</span>
+  <section class="result-preview" data-reveal>
+    <p class="result-preview-label">이런 결과를 받아볼 수 있어요</p>
+    <div class="result-preview-wrap">
+
+      <div class="rp-section rp-temp">
+        <div class="rp-temp-label">LOVE TEMPERATURE</div>
+        <div><span class="rp-temp-num">72.4</span><span class="rp-temp-deg">°</span></div>
+        <p class="rp-temp-msg">따뜻하지만, 조금 식어가고 있어요</p>
       </div>
-      <p class="preview-msg">따뜻하지만, 조금 식어가고 있어요</p>
-      <div class="preview-stats">
-        <div class="stat">
-          <span class="stat-val">63%</span>
-          <span class="stat-name">내가 먼저 연락</span>
+
+      <div class="rp-divider"></div>
+
+      <div class="rp-section rp-total">
+        <div><span class="rp-total-num">200,387</span><span class="rp-total-unit">개의 메시지</span></div>
+        <p class="rp-total-desc">우리가 주고 받은 대화</p>
+      </div>
+
+      <div class="rp-section rp-ratio">
+        <div class="rp-ratio-bar">
+          <div class="rp-ratio-me" style="width: 57%">57%</div>
+          <div class="rp-ratio-you" style="width: 43%">43%</div>
         </div>
-        <div class="stat">
-          <span class="stat-val purple">47분</span>
-          <span class="stat-name">상대 평균 답장</span>
+        <div class="rp-ratio-labels"><span>나</span><span>상대</span></div>
+      </div>
+
+      <div class="rp-section rp-first-contact">
+        <div class="rp-section-title">먼저 연락 비율</div>
+        <div class="rp-ratio-bar">
+          <div class="rp-ratio-me" style="width: 63%">63%</div>
+          <div class="rp-ratio-you" style="width: 37%">37%</div>
         </div>
-        <div class="stat">
-          <span class="stat-val">2,847</span>
-          <span class="stat-name">사랑해</span>
+        <div class="rp-ratio-labels"><span>내가 먼저</span><span>상대가 먼저</span></div>
+      </div>
+
+      <div class="rp-divider"></div>
+
+      <div class="rp-section">
+        <div class="rp-section-title">자주 쓰는 단어</div>
+        <div class="rp-wordcloud">
+          <span class="wc wc-xl wc-accent" style="top:6%;left:24%">보고싶어</span>
+          <span class="wc wc-sm wc-cold" style="top:10%;left:68%">바쁘다</span>
+          <span class="wc wc-lg" style="top:24%;left:6%">ㅋㅋㅋ</span>
+          <span class="wc wc-sm wc-cold" style="top:28%;left:42%">몰라</span>
+          <span class="wc wc-lg wc-accent" style="top:26%;left:60%">좋아</span>
+          <span class="wc wc-xl wc-accent" style="top:46%;left:22%">사랑해</span>
+          <span class="wc wc-sm wc-cold" style="top:50%;left:58%">알았어</span>
+          <span class="wc wc-md" style="top:44%;left:76%">잘자</span>
+          <span class="wc wc-md wc-accent" style="top:66%;left:8%">귀여워</span>
+          <span class="wc wc-sm wc-cold" style="top:68%;left:40%">ㅇㅇ</span>
+          <span class="wc wc-lg" style="top:64%;left:60%">ㅎㅎ</span>
+          <span class="wc wc-md" style="top:84%;left:18%">나도</span>
+          <span class="wc wc-sm wc-cold" style="top:86%;left:48%">그래</span>
+          <span class="wc wc-md wc-accent" style="top:82%;left:66%">밥</span>
         </div>
       </div>
-      <div class="preview-blur-items">
-        <div class="blur-row"><span>읽씹 추정</span><span>하루 2.3회</span></div>
-        <div class="blur-row"><span>대화량 추이</span><span>3개월째 감소</span></div>
-        <div class="blur-row"><span>새벽 대화</span><span>최근 0%</span></div>
+
+      <div class="rp-section" style="margin-top: 20px;">
+        <div class="rp-section-title">월별 대화 온도</div>
+        <div class="rp-monthly">
+          <div class="rp-month-row"><span class="rp-month-label">1월</span><div class="rp-month-track"><div class="rp-month-bar" style="width:92%"></div></div><span class="rp-month-val">84.2°</span></div>
+          <div class="rp-month-row"><span class="rp-month-label">2월</span><div class="rp-month-track"><div class="rp-month-bar" style="width:88%"></div></div><span class="rp-month-val">81.0°</span></div>
+          <div class="rp-month-row"><span class="rp-month-label">3월</span><div class="rp-month-track"><div class="rp-month-bar" style="width:80%"></div></div><span class="rp-month-val">76.5°</span></div>
+          <div class="rp-month-row"><span class="rp-month-label">4월</span><div class="rp-month-track"><div class="rp-month-bar" style="width:74%"></div></div><span class="rp-month-val">72.4°</span></div>
+          <div class="rp-month-row"><span class="rp-month-label">5월</span><div class="rp-month-track"><div class="rp-month-bar rp-month-bar--danger" style="width:58%"></div></div><span class="rp-month-val">63.1°</span></div>
+        </div>
       </div>
-      <p class="preview-more">+ 월별 심화지표 6개</p>
+
+      <p class="rp-more"><strong>+<br>감정 표현, 장문 비율, 부정어 비율 등</strong><br><span class="rp-more-accent">심화지표 6개</span></p>
+      <div class="rp-fade-bottom"></div>
+    </div>
+  </section>
+
+  <section class="guide" data-reveal>
+    <p class="guide-label">카톡 대화 내보내는 법</p>
+    <div class="guide-slider" id="guide-slider">
+      <button class="guide-arrow guide-arrow-left" id="guide-prev" aria-label="이전">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"></path></svg>
+      </button>
+      <button class="guide-arrow guide-arrow-right" id="guide-next" aria-label="다음">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg>
+      </button>
+      <div class="guide-track" id="guide-track">
+        <div class="guide-slide">
+          <span class="guide-step-num">1</span>
+          <img src="guide/1.png" alt="채팅방 설정 진입">
+          <p class="guide-slide-desc">채팅방에서 ⚙️ 설정을 눌러주세요</p>
+        </div>
+        <div class="guide-slide">
+          <span class="guide-step-num">2</span>
+          <img src="guide/2.png" alt="대화 내용 내보내기">
+          <p class="guide-slide-desc">스크롤을 내려<br>'대화 내용 내보내기'를 눌러주세요</p>
+        </div>
+        <div class="guide-slide">
+          <span class="guide-step-num">3</span>
+          <img src="guide/3.png" alt="내부저장소에 저장">
+          <p class="guide-slide-desc">'모든 메시지 내부저장소에 저장'을<br>선택해주세요</p>
+        </div>
+        <div class="guide-slide">
+          <span class="guide-step-num">4</span>
+          <img src="guide/4.png" alt="txt 파일 확인">
+          <p class="guide-slide-desc">생성된 KakaoTalkChats.txt를<br>업로드하면 끝!</p>
+        </div>
+      </div>
+    </div>
+    <div class="guide-dots" id="guide-dots">
+      <button class="guide-dot active" data-idx="0"></button>
+      <button class="guide-dot" data-idx="1"></button>
+      <button class="guide-dot" data-idx="2"></button>
+      <button class="guide-dot" data-idx="3"></button>
     </div>
   </section>
 
   <section class="bottom-zone" data-reveal>
-    <div class="how-steps">
-      <div class="how-pill">
-        <span class="pill-num">1</span>
-        <span class="pill-text">카톡 대화<br>내보내기</span>
-      </div>
-      <div class="how-pill">
-        <span class="pill-num">2</span>
-        <span class="pill-text">파일<br>업로드</span>
-      </div>
-      <div class="how-pill">
-        <span class="pill-num">3</span>
-        <span class="pill-text">결과<br>확인</span>
-      </div>
-    </div>
-
     <div class="privacy-line" id="privacy-line" style="display:none">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 1 1 8 0v4"></path></svg>
       <span>대화 내용은 서버에 저장되지 않아요</span>
     </div>
-    <p class="notify-link" onclick="openModal()">출시되면 알려드려요</p>
-    <button class="cta-button" onclick="openModal()">우리 사이 온도 확인하기</button>
-    <p class="cta-sub">무료 · 가입 없이 · 30초</p>
+    <button class="cta-button" onclick="openModal()">오픈하면 알려드릴게요</button>
+    <p class="cta-sub">출시 알림 신청 · 무료</p>
   </section>
 
-  <footer class="footer">우리 사이 온도 · 2025</footer>
+  <footer class="footer">
+      <span>우리사이 · 문의 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ae9e5e4feebe9fecafde5e5f8e3a7f9ebe3a4e9e5e7">[email&#160;protected]</a></span>
+      <a href="#" class="footer-link">개인정보처리방침</a>
+    </footer>
 
 </div>
 
@@ -722,7 +1125,71 @@ body {
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── Logging ──
+var _utmParams = (function() {
+  var p = new URLSearchParams(location.search);
+  return {
+    utm_source: p.get('utm_source') || '',
+    utm_medium: p.get('utm_medium') || '',
+    utm_content: p.get('utm_content') || '',
+    utm_campaign: p.get('utm_campaign') || ''
+  };
+})();
+
+function getDistinctId() {
+  try { return posthog.get_distinct_id(); } catch(e) { return 'unknown'; }
+}
+
+var _isOrganic = !_utmParams.utm_source && !_utmParams.utm_medium && !_utmParams.utm_content && !_utmParams.utm_campaign;
+if (_isOrganic) {
+  localStorage.setItem('uri-sai-organic', '1');
+}
+var _skipTracking = !!localStorage.getItem('uri-sai-organic');
+
+function trackEvent(name, props) {
+  if (_skipTracking) return;
+  props = props || {};
+  var merged = Object.assign({}, _utmParams, props);
+  try { posthog.capture(name, merged); } catch(e) {}
+  _supabase.from('events').insert({
+    event: name,
+    posthog_distinct_id: getDistinctId(),
+    properties: merged,
+    referrer: document.referrer,
+    device: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+    url: location.href
+  }).then(function() {});
+}
+
+trackEvent('page_view');
+
+// ── Section Scroll Tracking ──
+(function() {
+  var tracked = {};
+  var sections = [
+    { id: 'features', sel: '.features' },
+    { id: 'result_preview', sel: '.result-preview' },
+    { id: 'guide', sel: '.guide' },
+    { id: 'bottom_zone', sel: '.bottom-zone' }
+  ];
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var sid = e.target.dataset.trackSection;
+        if (sid && !tracked[sid]) {
+          tracked[sid] = true;
+          trackEvent('scroll_section', { section: sid });
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(function(s) {
+    var el = document.querySelector(s.sel);
+    if (el) { el.dataset.trackSection = s.id; obs.observe(el); }
+  });
+})();
+
 // ── Stars ──
 var starsLayer = document.getElementById('stars-layer');
 
@@ -773,7 +1240,7 @@ function initReveal() {
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.2, rootMargin: '0px 0px -100px 0px' });
     els.forEach(function(el) { obs.observe(el); });
   } else {
     els.forEach(function(el) { el.classList.add('revealed'); });
@@ -782,13 +1249,21 @@ function initReveal() {
 
 // ── Modal ──
 function openModal() {
+  trackEvent('cta_click');
   document.getElementById('modal-overlay').classList.add('active');
   document.getElementById('phone-input').focus();
+  trackEvent('modal_open');
 }
 
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('active');
 }
+
+// ── Phone focus tracking ──
+var _phoneFocused = false;
+document.getElementById('phone-input').addEventListener('focus', function() {
+  if (!_phoneFocused) { _phoneFocused = true; trackEvent('phone_focus'); }
+});
 
 // ── Phone formatting ──
 document.getElementById('phone-input').addEventListener('input', function(e) {
@@ -815,24 +1290,84 @@ function submitPhone() {
     return;
   }
 
-  // TODO: Google Sheets webhook or Vercel API route
-  // fetch('YOUR_WEBHOOK_URL', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ phone: input.value, ts: new Date().toISOString() })
-  // });
+  trackEvent('phone_submit');
+
+  _supabase.from('phone_leads').insert({
+    phone: input.value,
+    posthog_distinct_id: getDistinctId(),
+    utm_source: _utmParams.utm_source,
+    utm_medium: _utmParams.utm_medium,
+    utm_content: _utmParams.utm_content,
+    utm_campaign: _utmParams.utm_campaign,
+    referrer: document.referrer
+  }).then(function() {});
 
   fbq('track', 'Lead');
   document.getElementById('modal-form').classList.add('hidden');
   document.getElementById('modal-success').classList.add('active');
 }
 
+// ── Monthly Bars Animation ──
+(function() {
+  var monthly = document.querySelector('.rp-monthly');
+  if (!monthly) return;
+  var bars = monthly.querySelectorAll('.rp-month-bar');
+  var widths = [];
+  bars.forEach(function(b) { widths.push(b.style.width); b.style.width = '0'; b.style.transition = 'width 0.8s ease-out'; });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        bars.forEach(function(b, i) {
+          setTimeout(function() { b.style.width = widths[i]; }, i * 120);
+        });
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5, rootMargin: '0px 0px -120px 0px' });
+  obs.observe(monthly);
+})();
+
+// ── Guide Slider ──
+(function() {
+  var track = document.getElementById('guide-track');
+  var dots = document.querySelectorAll('.guide-dot');
+  var prev = document.getElementById('guide-prev');
+  var next = document.getElementById('guide-next');
+  var current = 0;
+  var total = 4;
+  var _guideMaxSeen = 0;
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(idx, total - 1));
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+    prev.classList.toggle('hidden', current === 0);
+    next.classList.toggle('hidden', current === total - 1);
+    if (current > _guideMaxSeen) {
+      _guideMaxSeen = current;
+      trackEvent('guide_swipe', { slide: current + 1, max_seen: _guideMaxSeen + 1 });
+    }
+  }
+
+  prev.addEventListener('click', function() { goTo(current - 1); });
+  next.addEventListener('click', function() { goTo(current + 1); });
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() { goTo(parseInt(d.dataset.idx)); });
+  });
+
+  goTo(0);
+})();
+
 // ── Init ──
 // ── UTM variant ──
 var params = new URLSearchParams(location.search);
 var variant = params.get('utm_content');
-if (variant === 'privacy') {
-  document.getElementById('privacy-line').style.display = 'flex';
+if (variant === 'secure') {
+  var privacyLine = document.getElementById('privacy-line');
+  if (privacyLine) privacyLine.style.display = 'flex';
+  var privacyFeature = document.getElementById('privacy-feature');
+  if (privacyFeature) privacyFeature.style.display = 'flex';
+  trackEvent('utm_variant', { variant: 'secure' });
 }
 
 createStarField(0.9);

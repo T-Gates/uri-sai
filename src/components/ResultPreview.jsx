@@ -141,15 +141,6 @@ export default function ResultPreview() {
           <div className="rp-ratio-labels"><span>나</span><span>상대</span></div>
         </div>
 
-        <div className="rp-section rp-first-contact">
-          <div className="rp-section-title">먼저 연락 비율</div>
-          <div className="rp-ratio-bar">
-            <div className="rp-ratio-me" style={{ width: '63%' }}>63%</div>
-            <div className="rp-ratio-you" style={{ width: '37%' }}>37%</div>
-          </div>
-          <div className="rp-ratio-labels"><span>내가 먼저</span><span>상대가 먼저</span></div>
-        </div>
-
         <div className="rp-divider" />
 
         <div className="rp-section" style={{ marginTop: 20 }}>
@@ -188,11 +179,11 @@ export default function ResultPreview() {
         </div>
 
         <div className="rp-section">
-          <div className="rp-section-title">대화를 닫는 쪽</div>
+          <div className="rp-section-title">먼저 연락하는 쪽</div>
           <div className="rp-donut-wrap">
             <div className="rp-donut">
               <div className="rp-donut-inner">
-                <span className="rp-donut-pct">62%</span>
+                <span className="rp-donut-pct">63%</span>
                 <span className="rp-donut-label">나</span>
               </div>
             </div>
@@ -200,16 +191,16 @@ export default function ResultPreview() {
               <div className="rp-donut-leg">
                 <span className="rp-donut-dot rp-donut-dot-me" />
                 <span className="rp-donut-leg-name">나</span>
-                <span className="rp-donut-leg-val">62%</span>
+                <span className="rp-donut-leg-val">63%</span>
               </div>
               <div className="rp-donut-leg">
                 <span className="rp-donut-dot rp-donut-dot-you" />
                 <span className="rp-donut-leg-name">상대</span>
-                <span className="rp-donut-leg-val">38%</span>
+                <span className="rp-donut-leg-val">37%</span>
               </div>
             </div>
           </div>
-          <p className="rp-ender-note">대화를 먼저 닫는 건 주로 나예요</p>
+          <p className="rp-ender-note">먼저 연락하는 건 10번 중 6번 나예요</p>
         </div>
 
         <div className="rp-section">

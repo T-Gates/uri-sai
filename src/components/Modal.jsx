@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { trackEvent, utmParams } from '../utils/tracking';
+import { supabase } from '../utils/supabase';
 
 export default function Modal({ open, onClose }) {
   const [phone, setPhone] = useState('');
@@ -51,17 +52,15 @@ export default function Modal({ open, onClose }) {
 
     trackEvent('phone_submit');
 
-    try {
-      window._supabase.from('phone_leads').insert({
-        phone,
-        posthog_distinct_id: (() => { try { return window.posthog.get_distinct_id(); } catch { return 'unknown'; } })(),
-        utm_source: utmParams.utm_source,
-        utm_medium: utmParams.utm_medium,
-        utm_content: utmParams.utm_content,
-        utm_campaign: utmParams.utm_campaign,
-        referrer: document.referrer,
-      });
-    } catch {}
+    supabase.from('phone_leads').insert({
+      phone,
+      posthog_distinct_id: (() => { try { return window.posthog.get_distinct_id(); } catch { return 'unknown'; } })(),
+      utm_source: utmParams.utm_source,
+      utm_medium: utmParams.utm_medium,
+      utm_content: utmParams.utm_content,
+      utm_campaign: utmParams.utm_campaign,
+      referrer: document.referrer,
+    });
 
     try { window.fbq('track', 'Lead'); } catch {}
     setSuccess(true);

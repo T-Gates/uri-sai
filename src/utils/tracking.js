@@ -1,3 +1,5 @@
+import { supabase } from './supabase';
+
 const params = new URLSearchParams(window.location.search);
 
 export const utmParams = {
@@ -24,7 +26,7 @@ export function trackEvent(name, props = {}) {
   const merged = { ...utmParams, ...props };
   try { window.posthog.capture(name, merged); } catch {}
   const doInsert = () => {
-    window._supabase.from('events').insert({
+    supabase.from('events').insert({
       event: name,
       posthog_distinct_id: getDistinctId(),
       properties: merged,
@@ -33,11 +35,7 @@ export function trackEvent(name, props = {}) {
       url: location.href,
     });
   };
-  if (window._supabase) {
-    doInsert();
-  } else {
-    window.addEventListener('load', doInsert, { once: true });
-  }
+  doInsert();
 }
 
 trackEvent('page_view');

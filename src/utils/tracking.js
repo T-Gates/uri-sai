@@ -8,7 +8,11 @@ export const utmParams = {
 };
 
 const isOrganic = !utmParams.utm_source && !utmParams.utm_medium && !utmParams.utm_content && !utmParams.utm_campaign;
-if (isOrganic) localStorage.setItem('uri-sai-organic', '1');
+if (isOrganic) {
+  localStorage.setItem('uri-sai-organic', '1');
+} else {
+  localStorage.removeItem('uri-sai-organic');
+}
 const skipTracking = !!localStorage.getItem('uri-sai-organic');
 
 function getDistinctId() {

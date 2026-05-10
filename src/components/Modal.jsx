@@ -60,7 +60,7 @@ export default function Modal({ open, onClose }) {
       utm_content: utmParams.utm_content,
       utm_campaign: utmParams.utm_campaign,
       referrer: document.referrer,
-    });
+    }).then(() => {});
 
     try { window.fbq('track', 'Lead'); } catch {}
     setSuccess(true);

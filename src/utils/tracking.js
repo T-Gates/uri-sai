@@ -25,17 +25,14 @@ export function trackEvent(name, props = {}) {
   if (skipTracking) return;
   const merged = { ...utmParams, ...props };
   try { window.posthog.capture(name, merged); } catch {}
-  const doInsert = () => {
-    supabase.from('events').insert({
-      event: name,
-      posthog_distinct_id: getDistinctId(),
-      properties: merged,
-      referrer: document.referrer,
-      device: window.innerWidth <= 768 ? 'mobile' : 'desktop',
-      url: location.href,
-    });
-  };
-  doInsert();
+  supabase.from('events').insert({
+    event: name,
+    posthog_distinct_id: getDistinctId(),
+    properties: merged,
+    referrer: document.referrer,
+    device: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+    url: location.href,
+  }).then(() => {});
 }
 
 trackEvent('page_view');

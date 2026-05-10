@@ -51,15 +51,17 @@ export default function Modal({ open, onClose }) {
 
     trackEvent('phone_submit');
 
-    window._supabase.from('phone_leads').insert({
-      phone,
-      posthog_distinct_id: (() => { try { return window.posthog.get_distinct_id(); } catch { return 'unknown'; } })(),
-      utm_source: utmParams.utm_source,
-      utm_medium: utmParams.utm_medium,
-      utm_content: utmParams.utm_content,
-      utm_campaign: utmParams.utm_campaign,
-      referrer: document.referrer,
-    });
+    try {
+      window._supabase.from('phone_leads').insert({
+        phone,
+        posthog_distinct_id: (() => { try { return window.posthog.get_distinct_id(); } catch { return 'unknown'; } })(),
+        utm_source: utmParams.utm_source,
+        utm_medium: utmParams.utm_medium,
+        utm_content: utmParams.utm_content,
+        utm_campaign: utmParams.utm_campaign,
+        referrer: document.referrer,
+      });
+    } catch {}
 
     try { window.fbq('track', 'Lead'); } catch {}
     setSuccess(true);

@@ -945,10 +945,11 @@ body {
   inset: 0;
   background: rgba(0,0,0,0.75);
   z-index: 100;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 24px;
+  padding: 40px 24px 24px;
   backdrop-filter: blur(6px);
+  overflow-y: auto;
 }
 .modal-overlay.active { display: flex; }
 
@@ -962,6 +963,7 @@ body {
   text-align: center;
   position: relative;
   backdrop-filter: blur(20px);
+  margin: auto;
 }
 
 .modal-close {

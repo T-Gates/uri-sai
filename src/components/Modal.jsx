@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { trackEvent, utmParams } from '../utils/tracking';
 import { supabase } from '../utils/supabase';
 
+const KAKAO_CHANNEL_URL = 'http://pf.kakao.com/_xiiFKX/friend';
+
 export default function Modal({ open, onClose }) {
   const [phone, setPhone] = useState('');
   const [consent, setConsent] = useState(false);
@@ -12,10 +14,7 @@ export default function Modal({ open, onClose }) {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (open) {
-      trackEvent('modal_open');
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
+    if (open) trackEvent('modal_open');
   }, [open]);
 
   const formatPhone = (value) => {
@@ -35,6 +34,11 @@ export default function Modal({ open, onClose }) {
       setPhoneFocused(true);
       trackEvent('phone_focus');
     }
+  };
+
+  const handleChannelAdd = () => {
+    trackEvent('channel_add_click');
+    try { window.fbq('track', 'Lead'); } catch {}
   };
 
   const handleSubmit = () => {
@@ -80,7 +84,23 @@ export default function Modal({ open, onClose }) {
         {!success ? (
           <div className="modal-form">
             <div className="modal-title">준비 중이에요</div>
-            <div className="modal-desc">오픈하면 알려드릴게요</div>
+            <div className="modal-desc">오픈하면 가장 먼저 알려드릴게요</div>
+
+            <a
+              className="kakao-channel-btn"
+              href={KAKAO_CHANNEL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleChannelAdd}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2C5.58 2 2 4.91 2 8.5c0 2.3 1.44 4.32 3.62 5.53L4.9 17.1a.3.3 0 0 0 .44.34L9.1 15.0A9.3 9.3 0 0 0 10 15c4.42 0 8-2.91 8-6.5S14.42 2 10 2Z" fill="#191919"/>
+              </svg>
+              카카오톡 채널 추가하기
+            </a>
+
+            <div className="modal-divider"><span>또는</span></div>
+
             <div className="phone-input-wrap">
               <input
                 ref={inputRef}
@@ -94,7 +114,7 @@ export default function Modal({ open, onClose }) {
                 onFocus={handlePhoneFocus}
                 style={error ? { borderColor: '#ff6b6b' } : undefined}
               />
-              <button className="phone-submit" onClick={handleSubmit}>알림 신청</button>
+              <button className="phone-submit" onClick={handleSubmit}>문자로 알림 받기</button>
             </div>
             <label className={`consent-label${shake ? ' shake' : ''}`}>
               <input
